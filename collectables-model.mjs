@@ -1,4 +1,4 @@
-// Models for the Movie Collection
+// Models for the Collecatable Collection
 
 // Import dependencies.
 import mongoose from 'mongoose';
@@ -34,13 +34,13 @@ const collectables = mongoose.model('collectables', collectableschema);
 
 
 // CREATE model *****************************************
-const createMovie = async (item, quantity, description) => {
-    const movie = new collectables({ 
+const createCollecatable = async (item, quantity, description) => {
+    const Collecatable = new collectables({ 
         item: item, 
         quantity: quantity, 
         description: description 
     });
-    return movie.save();
+    return Collecatable.save();
 }
 
 
@@ -52,20 +52,20 @@ const retrievecollectables = async () => {
 }
 
 // RETRIEVE by ID
-const retrieveMovieByID = async (_id) => {
+const retrieveCollecatableByID = async (_id) => {
     const query = collectables.findById({_id: _id});
     return query.exec();
 }
 
 // DELETE model based on _id  *****************************************
-const deleteMovieById = async (_id) => {
+const deleteCollecatableById = async (_id) => {
     const result = await collectables.deleteOne({_id: _id});
     return result.deletedCount;
 };
 
 
 // UPDATE model *****************************************************
-const updateMovie = async (_id, item, quantity, description) => {
+const updateCollecatable = async (_id, item, quantity, description) => {
     const result = await collectables.replaceOne({_id: _id }, {
         item: item,
         quantity: quantity,
@@ -80,4 +80,4 @@ const updateMovie = async (_id, item, quantity, description) => {
 }
 
 // EXPORT the variables for use in the controller file.
-export { createMovie, retrievecollectables, retrieveMovieByID, updateMovie, deleteMovieById }
+export { createCollecatable, retrievecollectables, retrieveCollecatableByID, updateCollecatable, deleteCollecatableById }

@@ -1,4 +1,4 @@
-// Controllers for the Movie Collection
+// Controllers for the Collecatable Collection
 
 import 'dotenv/config';
 import express from 'express';
@@ -14,14 +14,14 @@ app.use(express.json());  // REST needs JSON MIME type.
 
 // CREATE controller ******************************************
 app.post ('/collectables', (req,res) => { 
-    collectables.createMovie(
+    collectables.createCollecatable(
         req.body.item, 
         req.body.quantity, 
         req.body.description
         )
-        .then(movie => {
-            console.log(`"${movie.item}" was added to the collection.`);
-            res.status(201).json(movie);
+        .then(Collecatable => {
+            console.log(`"${Collecatable.item}" was added to the collection.`);
+            res.status(201).json(Collecatable);
         })
         .catch(error => {
             console.log(error);
@@ -50,11 +50,11 @@ app.get('/collectables', (req, res) => {
 
 // RETRIEVE by ID controller
 app.get('/collectables/:_id', (req, res) => {
-    collectables.retrieveMovieByID(req.params._id)
-    .then(movie => { 
-        if (movie !== null) {
-            console.log(`"${movie.item}" was retrieved, based on its ID.`);
-            res.json(movie);
+    collectables.retrieveCollecatableByID(req.params._id)
+    .then(Collecatable => { 
+        if (Collecatable !== null) {
+            console.log(`"${Collecatable.item}" was retrieved, based on its ID.`);
+            res.json(Collecatable);
         } else {
             res.status(404).json({ Error: 'Unique and specific error message.' });
         }         
@@ -69,15 +69,15 @@ app.get('/collectables/:_id', (req, res) => {
 
 // UPDATE controller ************************************
 app.put('/collectables/:_id', (req, res) => {
-    collectables.updateMovie(
+    collectables.updateCollecatable(
         req.params._id, 
         req.body.item, 
         req.body.quantity, 
         req.body.description
     )
-    .then(movie => {
-        console.log(`"${movie.item}" was updated.`);
-        res.json(movie);
+    .then(Collecatable => {
+        console.log(`"${Collecatable.item}" was updated.`);
+        res.json(Collecatable);
     })
     .catch(error => {
         console.log(error);
@@ -88,10 +88,10 @@ app.put('/collectables/:_id', (req, res) => {
 
 // DELETE Controller ******************************
 app.delete('/collectables/:_id', (req, res) => {
-    collectables.deleteMovieById(req.params._id)
+    collectables.deleteCollecatableById(req.params._id)
         .then(deletedCount => {
             if (deletedCount === 1) {
-                console.log(`Based on its ID, ${deletedCount} movie was deleted.`);
+                console.log(`Based on its ID, ${deletedCount} Collecatable was deleted.`);
                 res.status(200).send({ Success: 'Unique and specific success message.' });
             } else {
                 res.status(404).json({ Error: 'Unique and specific error message.' });

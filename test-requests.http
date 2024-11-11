@@ -1,5 +1,5 @@
 ### CREATE five documents.
-POSThttp://localhost:3000/collectables HTTP/1.1
+POST http://localhost:3000/collectables HTTP/1.1
 content-type: application/json
 
 {
@@ -11,7 +11,7 @@ content-type: application/json
 
 
 ### CREATE 2
-POSThttp://localhost:3000/collectables HTTP/1.1
+POST http://localhost:3000/collectables HTTP/1.1
 content-type: application/json
 {
     "item": "Blastoiz",
@@ -72,12 +72,12 @@ content-type: application/json
 
 {
     "item": "Charizard",
-    "quantity": 4,
+    "quantity": 5,
     "description": "Pokemon Card"
 }
 
 ### DELETE by ID (responds with nothing if successful):
-DELETE http://localhost:3000/collectables/* HTTP/1.1
+DELETE http://localhost:3000/collectables/673264f0e8e4fb5c13f9839d HTTP/1.1
 
 
 
