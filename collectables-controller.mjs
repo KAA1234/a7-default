@@ -25,7 +25,7 @@ app.post ('/collectables', (req,res) => {
         })
         .catch(error => {
             console.log(error);
-            res.status(400).json({ Error: 'Unique and specific error message.' });
+            res.status(400).json({ Error: 'Your request was bad, item not added. Please fix the request and retry.' });
         });
 });
 
@@ -38,12 +38,12 @@ app.get('/collectables', (req, res) => {
                 console.log(`All collectables were retrieved from the collection.`);
                 res.json(collectables);
             } else {
-                res.status(404).json({ Error: 'Unique and specific error message.' });
+                res.status(404).json({ Error: 'The resource you reqested was not found.' });
             }         
          })
         .catch(error => {
             console.log(error);
-            res.status(400).json({ Error: 'Unique and specific error message.' });
+            res.status(400).json({ Error: 'Your request was bad, item not found. Please fix the request and retry.' });
         });
 });
 
@@ -56,12 +56,12 @@ app.get('/collectables/:_id', (req, res) => {
             console.log(`"${Collecatable.item}" was retrieved, based on its ID.`);
             res.json(Collecatable);
         } else {
-            res.status(404).json({ Error: 'Unique and specific error message.' });
+            res.status(404).json({ Error: 'The resource you reqested was not found.' });
         }         
      })
     .catch(error => {
         console.log(error);
-        res.status(400).json({ Error: 'Unique and specific error message.' });
+        res.status(400).json({ Error: 'Your request was bad, id not found. Please fix the request and retry.' });
     });
 
 });
@@ -81,7 +81,7 @@ app.put('/collectables/:_id', (req, res) => {
     })
     .catch(error => {
         console.log(error);
-        res.status(400).json({ Error: 'Unique and specific error message.' });
+        res.status(400).json({ Error: 'Your request was bad, item not updated. Please fix the request and retry..' });
     });
 });
 
@@ -92,14 +92,14 @@ app.delete('/collectables/:_id', (req, res) => {
         .then(deletedCount => {
             if (deletedCount === 1) {
                 console.log(`Based on its ID, ${deletedCount} Collecatable was deleted.`);
-                res.status(200).send({ Success: 'Unique and specific success message.' });
+                res.status(200).send({ Success: 'Success, quantity updated.' });
             } else {
-                res.status(404).json({ Error: 'Unique and specific error message.' });
+                res.status(404).json({ Error: 'The resource you reqested was not found.' });
             }
         })
         .catch(error => {
             console.error(error);
-            res.send({ Error: 'Unique and specific error message.' });
+            res.send({ Error: 'Your request was bad, quantity is unchanged. Please fix the request and retry.' });
         });
 });
 
