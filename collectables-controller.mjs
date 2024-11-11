@@ -2,7 +2,7 @@
 
 import 'dotenv/config';
 import express from 'express';
-import * as movies from './movies-model.mjs';
+import * as collectables from './collectables-model.mjs';
 import cors from 'cors';
 
 
@@ -13,14 +13,14 @@ app.use(express.json());  // REST needs JSON MIME type.
 
 
 // CREATE controller ******************************************
-app.post ('/movies', (req,res) => { 
-    movies.createMovie(
-        req.body.title, 
-        req.body.year, 
-        req.body.language
+app.post ('/collectables', (req,res) => { 
+    collectables.createMovie(
+        req.body.item, 
+        req.body.quantity, 
+        req.body.description
         )
         .then(movie => {
-            console.log(`"${movie.title}" was added to the collection.`);
+            console.log(`"${movie.item}" was added to the collection.`);
             res.status(201).json(movie);
         })
         .catch(error => {
@@ -31,12 +31,12 @@ app.post ('/movies', (req,res) => {
 
 
 // RETRIEVE controller ****************************************************
-app.get('/movies', (req, res) => {
-    movies.retrieveMovies()
-        .then(movies => { 
-            if (movies !== null) {
-                console.log(`All movies were retrieved from the collection.`);
-                res.json(movies);
+app.get('/collectables', (req, res) => {
+    collectables.retrievecollectables()
+        .then(collectables => { 
+            if (collectables !== null) {
+                console.log(`All collectables were retrieved from the collection.`);
+                res.json(collectables);
             } else {
                 res.status(404).json({ Error: 'Unique and specific error message.' });
             }         
@@ -49,11 +49,11 @@ app.get('/movies', (req, res) => {
 
 
 // RETRIEVE by ID controller
-app.get('/movies/:_id', (req, res) => {
-    movies.retrieveMovieByID(req.params._id)
+app.get('/collectables/:_id', (req, res) => {
+    collectables.retrieveMovieByID(req.params._id)
     .then(movie => { 
         if (movie !== null) {
-            console.log(`"${movie.title}" was retrieved, based on its ID.`);
+            console.log(`"${movie.item}" was retrieved, based on its ID.`);
             res.json(movie);
         } else {
             res.status(404).json({ Error: 'Unique and specific error message.' });
@@ -68,15 +68,15 @@ app.get('/movies/:_id', (req, res) => {
 
 
 // UPDATE controller ************************************
-app.put('/movies/:_id', (req, res) => {
-    movies.updateMovie(
+app.put('/collectables/:_id', (req, res) => {
+    collectables.updateMovie(
         req.params._id, 
-        req.body.title, 
-        req.body.year, 
-        req.body.language
+        req.body.item, 
+        req.body.quantity, 
+        req.body.description
     )
     .then(movie => {
-        console.log(`"${movie.title}" was updated.`);
+        console.log(`"${movie.item}" was updated.`);
         res.json(movie);
     })
     .catch(error => {
@@ -87,8 +87,8 @@ app.put('/movies/:_id', (req, res) => {
 
 
 // DELETE Controller ******************************
-app.delete('/movies/:_id', (req, res) => {
-    movies.deleteMovieById(req.params._id)
+app.delete('/collectables/:_id', (req, res) => {
+    collectables.deleteMovieById(req.params._id)
         .then(deletedCount => {
             if (deletedCount === 1) {
                 console.log(`Based on its ID, ${deletedCount} movie was deleted.`);

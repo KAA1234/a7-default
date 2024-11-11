@@ -1,11 +1,11 @@
 {
-    "name": "movies-starter-backend",
+    "name": "collectables-starter-backend",
     "version": "2023",
     "description": "",
     "main": "",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "nodemon movies-controller.mjs"
+        "start": "nodemon collectables-controller.mjs"
     },
     "author": "",
     "license": "ISC",

@@ -21,23 +21,24 @@ db.once("open", (err) => {
 });
 
 // SCHEMA: Define the collection's schema.
-const movieSchema = mongoose.Schema({
-	title:    { type: String, required: true },
-	year:     { type: Number, required: true },
-	language: { type: String, required: true }
+const collectableschema = mongoose.Schema({
+	item:    { type: String, required: true },
+	quantity:     { type: Number, required: true },
+	description: { type: String, required: true },
+    date: { type: Date, default: Date.now(), required: true }
 });
 
 // Compile the model from the schema 
-// by defining the collection name "movies".
-const movies = mongoose.model('Movies', movieSchema);
+// by defining the collection name "collectables".
+const collectables = mongoose.model('collectables', collectableschema);
 
 
 // CREATE model *****************************************
-const createMovie = async (title, year, language) => {
-    const movie = new movies({ 
-        title: title, 
-        year: year, 
-        language: language 
+const createMovie = async (item, quantity, description) => {
+    const movie = new collectables({ 
+        item: item, 
+        quantity: quantity, 
+        description: description 
     });
     return movie.save();
 }
@@ -45,38 +46,38 @@ const createMovie = async (title, year, language) => {
 
 // RETRIEVE model *****************************************
 // Retrieve all documents and return a promise.
-const retrieveMovies = async () => {
-    const query = movies.find();
+const retrievecollectables = async () => {
+    const query = collectables.find();
     return query.exec();
 }
 
 // RETRIEVE by ID
 const retrieveMovieByID = async (_id) => {
-    const query = movies.findById({_id: _id});
+    const query = collectables.findById({_id: _id});
     return query.exec();
 }
 
 // DELETE model based on _id  *****************************************
 const deleteMovieById = async (_id) => {
-    const result = await movies.deleteOne({_id: _id});
+    const result = await collectables.deleteOne({_id: _id});
     return result.deletedCount;
 };
 
 
 // UPDATE model *****************************************************
-const updateMovie = async (_id, title, year, language) => {
-    const result = await movies.replaceOne({_id: _id }, {
-        title: title,
-        year: year,
-        language: language
+const updateMovie = async (_id, item, quantity, description) => {
+    const result = await collectables.replaceOne({_id: _id }, {
+        item: item,
+        quantity: quantity,
+        description: description
     });
     return { 
         _id: _id, 
-        title: title,
-        year: year,
-        language: language 
+        item: item,
+        quantity: quantity,
+        description: description 
     }
 }
 
 // EXPORT the variables for use in the controller file.
-export { createMovie, retrieveMovies, retrieveMovieByID, updateMovie, deleteMovieById }
+export { createMovie, retrievecollectables, retrieveMovieByID, updateMovie, deleteMovieById }
